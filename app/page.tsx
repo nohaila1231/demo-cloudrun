@@ -1,3 +1,4 @@
+"use client";
 export default function Home() {
   const title =
     typeof process !== "undefined" ? process.env.NEXT_PUBLIC_TITLE : undefined;
