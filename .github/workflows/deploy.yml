@@ -53,6 +53,13 @@ jobs:
           secrets_vars=$(paste -sd, .github/cloud-run/.demo.secrets.prod)
           echo "secrets_vars=$secrets_vars" >> "$GITHUB_OUTPUT"
 
+      - name: Build Environment Variables
+        id: envvars
+        shell: bash
+        run: |
+          env_vars=$(paste -sd, .github/cloud-run/.demo.env.prod)
+          echo "env_vars=$env_vars" >> "$GITHUB_OUTPUT"
+
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v3
@@ -62,11 +69,11 @@ jobs:
           region: ${{ env.REGION }}
           image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}
 
+          env_vars: ${{ steps.envvars.outputs.env_vars }}
           secrets: ${{ steps.secrets.outputs.secrets_vars }}
 
           flags: >-
             --service-account=next-runtime@devops-sqli-projet.iam.gserviceaccount.com
-            --env-vars-file=.github/cloud-run/.demo.env.prod
             --allow-unauthenticated
 
       - name: Show Cloud Run URL
