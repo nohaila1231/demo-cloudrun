@@ -82,6 +82,7 @@ jobs:
           flags: >-
             --service-account=next-runtime@devops-sqli-projet.iam.gserviceaccount.com
             --allow-unauthenticated
+            --ingress=internal-and-cloud-load-balancing
 
       - name: Show Cloud Run URL
         run: |
