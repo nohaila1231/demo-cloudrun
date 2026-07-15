@@ -3,7 +3,7 @@ name: Deploy to Cloud Run
 on:
   push:
     branches:
-      - main
+      - "**"
 
 env:
   PROJECT_ID: devops-sqli-projet
@@ -68,10 +68,10 @@ jobs:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}
-
           env_vars: ${{ steps.envvars.outputs.env_vars }}
           secrets: ${{ steps.secrets.outputs.secrets_vars }}
-
+          suffix: ${{ github.ref_name }}-${{ github.run_number }}
+          tag: ${{ github.ref_name }}
           flags: >-
             --service-account=next-runtime@devops-sqli-projet.iam.gserviceaccount.com
             --allow-unauthenticated
