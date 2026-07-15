@@ -1,345 +1,674 @@
 "use client";
+
+import { useState, useEffect } from "react";
+
 export default function Home() {
+  const [isLoaded, setIsLoaded] = useState(false);
   const title =
     typeof process !== "undefined" ? process.env.NEXT_PUBLIC_TITLE : undefined;
 
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   return (
-    <main className="page">
-      <div className="grid-bg" aria-hidden="true" />
-
-      <div className="eyebrow">MANIFESTE DE DÉPLOIEMENT — CLOUD RUN</div>
-
-      <section className="manifest" aria-label="Détails du déploiement">
-        <div className="stub">
-          <span className="dot" aria-hidden="true" />
-          <span className="stub-label">LIVE</span>
-          <span className="stub-code">WFD·CR·01</span>
+    <div className="app">
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="nav-brand">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="4" y="4" width="24" height="24" rx="6" fill="#2563EB" />
+              <path d="M10 16L14 20L22 12" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span>CloudDeploy</span>
+          </div>
+          <div className="nav-links">
+            <a href="#">Dashboard</a>
+            <a href="#">Deployments</a>
+            <a href="#">Settings</a>
+            <button className="btn-outline">Documentation</button>
+          </div>
         </div>
+      </nav>
 
-        <div className="perforation" aria-hidden="true" />
-
-        <div className="body">
-          <span className="stamp">DÉPLOYÉ</span>
-
-          <h1>
-            Westfield
-            <br />
-            Cloud Run Demo
-          </h1>
-
-          <p className="sub">
-            Déploiement continu depuis GitHub Actions jusqu&rsquo;à Cloud Run —
-            build, test et mise en production à chaque push.
+      <main className="main-content">
+        <div className="hero-section">
+          <div className="hero-badge">
+            <span className="status-dot" />
+            Système opérationnel
+          </div>
+          <h1>Déploiement réussi</h1>
+          <p className="hero-subtitle">
+            Votre application est maintenant disponible sur Google Cloud Run
           </p>
-
-          <dl className="fields">
-            <div>
-              <dt>Plateforme</dt>
-              <dd>Google Cloud Run</dd>
-            </div>
-            <div>
-              <dt>Déployé via</dt>
-              <dd>GitHub Actions</dd>
-            </div>
-            <div>
-              <dt>Titre runtime</dt>
-              <dd>{title || "— non défini —"}</dd>
-            </div>
-          </dl>
+          <div className="hero-actions">
+            <button className="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Accéder à l'application
+            </button>
+            <button className="btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 4V20H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M8 12L12 16L20 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Voir les logs
+            </button>
+          </div>
         </div>
-      </section>
 
-      <ol className="pipeline">
-        {["Push", "Build", "Test", "Deploy"].map((step, i) => (
-          <li key={step} className={i === 3 ? "active" : ""}>
-            <span className="idx">{String(i + 1).padStart(2, "0")}</span>
-            <span>{step}</span>
-          </li>
-        ))}
-      </ol>
+        <div className="stats-grid">
+          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`}>
+            <div className="stat-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="9" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2"/>
+                <path d="M8 9V7C8 5.89543 8.89543 5 10 5H14C15.1046 5 16 5.89543 16 7V9" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+            </div>
+            <div className="stat-content">
+              <span className="stat-label">Temps de déploiement</span>
+              <span className="stat-value">2.4s</span>
+              <span className="stat-change positive">-12% plus rapide</span>
+            </div>
+          </div>
+
+          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`} style={{ animationDelay: "0.1s" }}>
+            <div className="stat-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
+                <path d="M8 12L11 15L16 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div className="stat-content">
+              <span className="stat-label">Statut</span>
+              <span className="stat-value success">Actif</span>
+              <span className="stat-change">100% uptime</span>
+            </div>
+          </div>
+
+          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`} style={{ animationDelay: "0.2s" }}>
+            <div className="stat-icon purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <div className="stat-content">
+              <span className="stat-label">Version</span>
+              <span className="stat-value">v2.4.1</span>
+              <span className="stat-change">Dernière version</span>
+            </div>
+          </div>
+
+          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`} style={{ animationDelay: "0.3s" }}>
+            <div className="stat-icon orange">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
+                <path d="M12 7V12L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div className="stat-content">
+              <span className="stat-label">Runtime</span>
+              <span className="stat-value">{title || "—"}</span>
+              <span className="stat-change">Node.js 20</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="deployment-details">
+          <div className="details-header">
+            <h2>Détails du déploiement</h2>
+            <span className="deployment-id">#DEP-2026-0715</span>
+          </div>
+          
+          <div className="details-grid">
+            <div className="detail-item">
+              <span className="detail-label">Plateforme</span>
+              <span className="detail-value">Google Cloud Run</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Région</span>
+              <span className="detail-value">europe-west1</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">CI/CD</span>
+              <span className="detail-value">GitHub Actions</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Déployé par</span>
+              <span className="detail-value">westfield-team</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="pipeline-section">
+          <h3>Pipeline de déploiement</h3>
+          <div className="pipeline-steps">
+            {[
+              { name: "Build", status: "done", time: "1.2s" },
+              { name: "Test", status: "done", time: "3.8s" },
+              { name: "Deploy", status: "active", time: "2.4s" },
+              { name: "Verify", status: "pending", time: "..." }
+            ].map((step, i) => (
+              <div key={step.name} className={`pipeline-step ${step.status}`}>
+                <div className="step-indicator">
+                  {step.status === "done" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" fill="#10B981"/>
+                      <path d="M8 12L11 15L16 10" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                  )}
+                  {step.status === "active" && (
+                    <div className="spinner" />
+                  )}
+                  {step.status === "pending" && (
+                    <div className="pending-dot" />
+                  )}
+                </div>
+                <div className="step-content">
+                  <span className="step-name">{step.name}</span>
+                  <span className="step-time">{step.time}</span>
+                </div>
+                {i < 3 && <div className="step-connector" />}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="quick-actions">
+          <button className="action-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 4V16M12 16L8 12M12 16L16 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M4 16L4 20H20V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            Redéployer
+          </button>
+          <button className="action-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
+              <path d="M12 8V12L14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            Historique
+          </button>
+          <button className="action-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+            </svg>
+            Configuration
+          </button>
+        </div>
+      </main>
 
       <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap");
-
-        :root {
-          --ink: #0a0e1a;
-          --panel: #10162a;
-          --panel-2: #161d33;
-          --border: #232c47;
-          --text: #e9ecf6;
-          --muted: #8792ae;
-          --accent: #6c7bff;
-          --live: #34d399;
-        }
-
         * {
+          margin: 0;
+          padding: 0;
           box-sizing: border-box;
         }
 
-        html,
         body {
-          margin: 0;
-          background: var(--ink);
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          background: #F8FAFC;
+          color: #0A0E1A;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+          animation: fadeInUp 0.6s ease-out forwards;
         }
       `}</style>
 
       <style jsx>{`
-        .page {
-          position: relative;
+        .app {
           min-height: 100vh;
+          background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+        }
+
+        .navbar {
+          background: white;
+          border-bottom: 1px solid #E2E8F0;
+          padding: 0 2rem;
+          height: 72px;
           display: flex;
-          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          gap: 2.5rem;
-          padding: 4rem 1.5rem;
-          background: var(--ink);
-          color: var(--text);
-          font-family: "IBM Plex Sans", sans-serif;
-          overflow: hidden;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          backdrop-filter: blur(8px);
         }
 
-        .grid-bg {
-          position: absolute;
-          inset: 0;
-          background-image: linear-gradient(
-              to right,
-              var(--border) 1px,
-              transparent 1px
-            ),
-            linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-          background-size: 48px 48px;
-          opacity: 0.25;
-          mask-image: radial-gradient(
-            ellipse at center,
-            black 0%,
-            transparent 75%
-          );
-        }
-
-        .eyebrow {
-          position: relative;
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 0.72rem;
-          letter-spacing: 0.18em;
-          color: var(--muted);
-        }
-
-        .manifest {
-          position: relative;
+        .nav-container {
+          max-width: 1280px;
+          width: 100%;
+          margin: 0 auto;
           display: flex;
-          width: min(680px, 100%);
-          background: var(--panel);
-          border: 1px solid var(--border);
-          border-radius: 14px;
-          box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.6);
-          overflow: hidden;
-        }
-
-        .stub {
-          position: relative;
-          display: flex;
-          flex-direction: column;
+          justify-content: space-between;
           align-items: center;
-          justify-content: center;
-          gap: 0.6rem;
-          width: 88px;
-          flex-shrink: 0;
-          padding: 1.5rem 0.5rem;
-          background: var(--panel-2);
         }
 
-        .dot {
-          width: 10px;
-          height: 10px;
+        .nav-brand {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-weight: 600;
+          font-size: 1.2rem;
+          color: #1E293B;
+        }
+
+        .nav-links {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+        }
+
+        .nav-links a {
+          color: #64748B;
+          text-decoration: none;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+          color: #2563EB;
+        }
+
+        .btn-outline {
+          background: transparent;
+          border: 1px solid #E2E8F0;
+          padding: 0.5rem 1.25rem;
+          border-radius: 8px;
+          color: #64748B;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+          border-color: #2563EB;
+          color: #2563EB;
+        }
+
+        .main-content {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 3rem 2rem;
+        }
+
+        .hero-section {
+          text-align: center;
+          padding: 3rem 0 4rem;
+        }
+
+        .hero-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 0.4rem 1rem;
+          background: #DCFCE7;
+          color: #16A34A;
+          border-radius: 999px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          margin-bottom: 1.5rem;
+        }
+
+        .status-dot {
+          width: 8px;
+          height: 8px;
           border-radius: 50%;
-          background: var(--live);
-          box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
-          animation: pulse 2.2s ease-in-out infinite;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .dot {
-            animation: none;
-          }
+          background: #22C55E;
+          animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-          0%,
-          100% {
-            box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
-          }
-          50% {
-            box-shadow: 0 0 0 8px rgba(52, 211, 153, 0.05);
-          }
-        }
-
-        .stub-label {
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 0.65rem;
-          letter-spacing: 0.15em;
-          color: var(--live);
-        }
-
-        .stub-code {
-          writing-mode: vertical-rl;
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 0.65rem;
-          letter-spacing: 0.1em;
-          color: var(--muted);
-          margin-top: 0.5rem;
-        }
-
-        .perforation {
-          position: relative;
-          width: 1px;
-          flex-shrink: 0;
-          background-image: radial-gradient(
-            circle,
-            var(--ink) 2px,
-            transparent 2.5px
-          );
-          background-size: 1px 14px;
-          background-color: var(--border);
-        }
-
-        .body {
-          position: relative;
-          flex: 1;
-          padding: 2.25rem 2.25rem 2rem;
-        }
-
-        .stamp {
-          position: absolute;
-          top: 1.5rem;
-          right: 1.75rem;
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.12em;
-          color: var(--accent);
-          border: 1px solid var(--accent);
-          border-radius: 999px;
-          padding: 0.3rem 0.65rem;
-          transform: rotate(6deg);
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
         }
 
         h1 {
-          margin: 0 0 0.85rem;
-          font-family: "IBM Plex Mono", monospace;
-          font-weight: 600;
-          font-size: clamp(1.6rem, 3vw, 2.1rem);
-          line-height: 1.15;
-          letter-spacing: -0.01em;
+          font-size: 3.5rem;
+          font-weight: 700;
+          color: #0A0E1A;
+          margin-bottom: 1rem;
+          letter-spacing: -0.02em;
         }
 
-        .sub {
-          margin: 0 0 1.75rem;
-          max-width: 42ch;
-          color: var(--muted);
-          font-size: 0.95rem;
-          line-height: 1.55;
+        .hero-subtitle {
+          font-size: 1.2rem;
+          color: #64748B;
+          margin-bottom: 2.5rem;
         }
 
-        .fields {
-          display: grid;
-          gap: 0.75rem;
-          margin: 0;
-          padding-top: 1.5rem;
-          border-top: 1px dashed var(--border);
-        }
-
-        .fields > div {
+        .hero-actions {
           display: flex;
-          align-items: baseline;
-          justify-content: space-between;
           gap: 1rem;
+          justify-content: center;
+          flex-wrap: wrap;
         }
 
-        dt {
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 0.72rem;
-          letter-spacing: 0.08em;
-          color: var(--muted);
+        .btn-primary, .btn-secondary {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 0.75rem 2rem;
+          border-radius: 10px;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+          border: none;
         }
 
-        dd {
-          margin: 0;
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 0.85rem;
-          color: var(--text);
-          text-align: right;
+        .btn-primary {
+          background: #2563EB;
+          color: white;
+          box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        .pipeline {
-          position: relative;
-          display: flex;
-          list-style: none;
-          gap: 0;
-          margin: 0;
-          padding: 0;
-          width: min(680px, 100%);
+        .btn-primary:hover {
+          background: #1D4ED8;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
 
-        .pipeline li {
-          flex: 1;
+        .btn-secondary {
+          background: white;
+          color: #1E293B;
+          border: 1px solid #E2E8F0;
+        }
+
+        .btn-secondary:hover {
+          background: #F8FAFC;
+          border-color: #CBD5E1;
+        }
+
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .stat-card {
+          background: white;
+          padding: 1.5rem;
+          border-radius: 12px;
+          border: 1px solid #E2E8F0;
           display: flex;
           align-items: center;
-          gap: 0.6rem;
-          padding: 0.85rem 0;
-          border-top: 1px solid var(--border);
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 0.78rem;
-          color: var(--muted);
+          gap: 1rem;
+          opacity: 0;
         }
 
-        .pipeline li + li {
-          margin-left: 1rem;
+        .stat-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
         }
 
-        .pipeline li.active {
-          color: var(--live);
-          border-top-color: var(--live);
+        .stat-icon.blue { background: #DBEAFE; color: #2563EB; }
+        .stat-icon.green { background: #DCFCE7; color: #16A34A; }
+        .stat-icon.purple { background: #F3E8FF; color: #9333EA; }
+        .stat-icon.orange { background: #FEF3C7; color: #D97706; }
+
+        .stat-content {
+          flex: 1;
         }
 
-        .idx {
-          font-size: 0.68rem;
-          color: var(--border);
+        .stat-label {
+          display: block;
+          font-size: 0.8rem;
+          color: #94A3B8;
+          margin-bottom: 2px;
         }
 
-        .pipeline li.active .idx {
-          color: var(--live);
+        .stat-value {
+          font-size: 1.4rem;
+          font-weight: 600;
+          color: #0A0E1A;
         }
 
-        @media (max-width: 560px) {
-          .manifest {
+        .stat-value.success {
+          color: #16A34A;
+        }
+
+        .stat-change {
+          font-size: 0.75rem;
+          color: #94A3B8;
+          display: block;
+          margin-top: 2px;
+        }
+
+        .stat-change.positive {
+          color: #16A34A;
+        }
+
+        .deployment-details {
+          background: white;
+          border-radius: 12px;
+          border: 1px solid #E2E8F0;
+          padding: 2rem;
+          margin-bottom: 3rem;
+        }
+
+        .details-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid #F1F5F9;
+        }
+
+        .details-header h2 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #0A0E1A;
+        }
+
+        .deployment-id {
+          font-family: 'Courier New', monospace;
+          font-size: 0.85rem;
+          color: #94A3B8;
+          background: #F8FAFC;
+          padding: 0.3rem 0.8rem;
+          border-radius: 6px;
+        }
+
+        .details-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
+        }
+
+        .detail-item {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .detail-label {
+          font-size: 0.8rem;
+          color: #94A3B8;
+          font-weight: 500;
+        }
+
+        .detail-value {
+          font-size: 1rem;
+          font-weight: 500;
+          color: #0A0E1A;
+        }
+
+        .pipeline-section {
+          background: white;
+          border-radius: 12px;
+          border: 1px solid #E2E8F0;
+          padding: 2rem;
+          margin-bottom: 3rem;
+        }
+
+        .pipeline-section h3 {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #0A0E1A;
+          margin-bottom: 1.5rem;
+        }
+
+        .pipeline-steps {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          position: relative;
+        }
+
+        .pipeline-step {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex: 1;
+          position: relative;
+        }
+
+        .step-indicator {
+          width: 40px;
+          height: 40px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .spinner {
+          width: 24px;
+          height: 24px;
+          border: 3px solid #DBEAFE;
+          border-top-color: #2563EB;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+        }
+
+        .pending-dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #E2E8F0;
+        }
+
+        .step-content {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .step-name {
+          font-weight: 500;
+          font-size: 0.95rem;
+          color: #0A0E1A;
+        }
+
+        .step-time {
+          font-size: 0.8rem;
+          color: #94A3B8;
+        }
+
+        .step-connector {
+          flex: 1;
+          height: 2px;
+          background: #E2E8F0;
+          margin: 0 1rem;
+          align-self: center;
+        }
+
+        .pipeline-step.done .step-name { color: #16A34A; }
+        .pipeline-step.active .step-name { color: #2563EB; }
+
+        .quick-actions {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .action-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 0.7rem 1.5rem;
+          background: white;
+          border: 1px solid #E2E8F0;
+          border-radius: 8px;
+          color: #1E293B;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+          border-color: #2563EB;
+          color: #2563EB;
+          transform: translateY(-1px);
+        }
+
+        @media (max-width: 1024px) {
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .details-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .navbar {
+            padding: 0 1rem;
+          }
+          .nav-links {
+            display: none;
+          }
+          h1 {
+            font-size: 2.5rem;
+          }
+          .stats-grid {
+            grid-template-columns: 1fr;
+          }
+          .details-grid {
+            grid-template-columns: 1fr;
+          }
+          .pipeline-steps {
             flex-direction: column;
+            gap: 1rem;
           }
-          .stub {
-            flex-direction: row;
-            width: 100%;
+          .step-connector {
+            display: none;
           }
-          .stub-code {
-            writing-mode: horizontal-tb;
-            margin: 0 0 0 auto;
-          }
-          .perforation {
-            width: 100%;
-            height: 1px;
-            background-image: radial-gradient(
-              circle,
-              var(--ink) 2px,
-              transparent 2.5px
-            );
-            background-size: 14px 1px;
-          }
-          .pipeline {
-            flex-wrap: wrap;
-          }
-          .pipeline li {
-            flex-basis: 46%;
+          .main-content {
+            padding: 2rem 1rem;
           }
         }
       `}</style>
-    </main>
+    </div>
   );
 }
