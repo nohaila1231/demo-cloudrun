@@ -873,7 +873,7 @@ export default function Home() {
           }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 769px) {
           .nav {
             display: none;
           }
@@ -881,7 +881,7 @@ export default function Home() {
             display: block;
           }
           h1 {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
           }
           .hero-stats {
             gap: 2rem;
