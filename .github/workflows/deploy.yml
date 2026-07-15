@@ -60,6 +60,13 @@ jobs:
           env_vars=$(paste -sd, .github/cloud-run/.demo.env.prod)
           echo "env_vars=$env_vars" >> "$GITHUB_OUTPUT"
 
+      - name: Prepare branch name
+        id: branch
+        shell: bash
+        run: |
+          BRANCH=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+          echo "branch_name=$BRANCH" >> "$GITHUB_OUTPUT"
+
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v3
@@ -70,8 +77,8 @@ jobs:
           image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}
           env_vars: ${{ steps.envvars.outputs.env_vars }}
           secrets: ${{ steps.secrets.outputs.secrets_vars }}
-          suffix: ${{ github.ref_name }}-${{ github.run_number }}
-          tag: ${{ github.ref_name }}
+          suffix: ${{ steps.branch.outputs.branch_name }}-${{ github.run_number }}
+          tag: ${{ steps.branch.outputs.branch_name }}
           flags: >-
             --service-account=next-runtime@devops-sqli-projet.iam.gserviceaccount.com
             --allow-unauthenticated
