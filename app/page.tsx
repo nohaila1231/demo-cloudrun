@@ -336,7 +336,7 @@ export default function Home() {
             flex-wrap: wrap;
           }
           .pipeline li {
-            flex-basis: 45%;
+            flex-basis: 46%;
           }
         }
       `}</style>
