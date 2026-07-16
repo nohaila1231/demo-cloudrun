@@ -4,204 +4,231 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const title =
-    typeof process !== "undefined" ? process.env.NEXT_PUBLIC_TITLE : undefined;
+  const [selectedNews, setSelectedNews] = useState(null);
+  
+  const schoolName = typeof process !== "undefined" ? process.env.NEXT_PUBLIC_SCHOOL_NAME : "Lycée International";
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
+  const news = [
+    {
+      id: 1,
+      category: "Événement",
+      title: "Journée Portes Ouvertes 2026",
+      excerpt: "Venez découvrir notre établissement le samedi 25 mars 2026 de 9h à 17h. Rencontrez nos enseignants et visitez nos locaux.",
+      date: "15 Mars 2026",
+      author: "Mme Dupont",
+      image: "🏫"
+    },
+    {
+      id: 2,
+      category: "Résultat",
+      title: "100% de réussite au Bac 2025",
+      excerpt: "Félicitations à tous nos élèves pour leur excellence ! 15 mentions Très Bien et 25 mentions Bien.",
+      date: "12 Mars 2026",
+      author: "M. Martin",
+      image: "🎓"
+    },
+    {
+      id: 3,
+      category: "Projet",
+      title: "Lancement du Club Robotique",
+      excerpt: "Un nouveau club de robotique voit le jour. Inscriptions ouvertes à tous les élèves à partir de la 4ème.",
+      date: "10 Mars 2026",
+      author: "Mme Lambert",
+      image: "🤖"
+    }
+  ];
+
+  const events = [
+    { time: "09:00", title: "Cours de Mathématiques", room: "Salle 201" },
+    { time: "10:30", title: "Atelier Sciences", room: "Labo 3" },
+    { time: "14:00", title: "Réunion Parents-Professeurs", room: "Amphithéâtre" }
+  ];
+
   return (
     <div className="app">
-      <nav className="navbar">
-        <div className="nav-container">
-          <div className="nav-brand">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <rect x="4" y="4" width="24" height="24" rx="6" fill="#2563EB" />
-              <path d="M10 16L14 20L22 12" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span>CloudDeploy</span>
+      {/* Header */}
+      <header className="header">
+        <div className="header-container">
+          <div className="logo">
+            <span className="logo-icon">📚</span>
+            <div>
+              <span className="logo-text">{schoolName}</span>
+              <span className="logo-sub">Établissement d'excellence</span>
+            </div>
           </div>
-          <div className="nav-links">
-            <a href="#">Dashboard</a>
-            <a href="#">Deployments</a>
-            <a href="#">Settings</a>
-            <button className="btn-outline">Documentation</button>
-          </div>
+          <nav className="nav">
+            <a href="#" className="nav-link active">Accueil</a>
+            <a href="#" className="nav-link">Notre École</a>
+            <a href="#" className="nav-link">Formations</a>
+            <a href="#" className="nav-link">Vie Scolaire</a>
+            <a href="#" className="nav-link">Contact</a>
+          </nav>
+          <button className="menu-btn">☰</button>
         </div>
-      </nav>
+      </header>
 
-      <main className="main-content">
-        <div className="hero-section">
-          <div className="hero-badge">
-            <span className="status-dot" />
-            Système opérationnel
+      <main>
+        {/* Hero Section */}
+        <section className="hero">
+          <div className="hero-content">
+            <div className={`hero-badge ${isLoaded ? "fade-in" : ""}`}>
+              <span className="badge-dot" />
+              Rentrée 2026 - Inscriptions ouvertes
+            </div>
+            <h1 className={isLoaded ? "fade-in" : ""}>
+              L'excellence
+              <br />
+              <span className="highlight">au cœur de l'éducation</span>
+            </h1>
+            <p className="hero-text">
+              Un environnement d'apprentissage innovant pour former les leaders de demain
+            </p>
+            <div className="hero-actions">
+              <button className="btn-primary">📝 S'inscrire</button>
+              <button className="btn-secondary">📖 En savoir plus</button>
+            </div>
+            <div className="hero-stats">
+              <div className="stat">
+                <span className="stat-number">95%</span>
+                <span className="stat-label">Réussite au Bac</span>
+              </div>
+              <div className="stat">
+                <span className="stat-number">1200+</span>
+                <span className="stat-label">Élèves</span>
+              </div>
+              <div className="stat">
+                <span className="stat-number">45</span>
+                <span className="stat-label">Enseignants</span>
+              </div>
+            </div>
           </div>
-          <h1>Déploiement réussi</h1>
-          <p className="hero-subtitle">
-            Votre application est maintenant disponible sur Google Cloud Run
-          </p>
-          <div className="hero-actions">
-            <button className="btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Accéder à l'application
-            </button>
-            <button className="btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M4 4V20H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M8 12L12 16L20 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Voir les logs
-            </button>
+          <div className="hero-image">
+            <div className="image-placeholder">🏛️</div>
           </div>
-        </div>
+        </section>
 
-        <div className="stats-grid">
-          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`}>
-            <div className="stat-icon blue">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="9" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2"/>
-                <path d="M8 9V7C8 5.89543 8.89543 5 10 5H14C15.1046 5 16 5.89543 16 7V9" stroke="currentColor" strokeWidth="2"/>
-              </svg>
-            </div>
-            <div className="stat-content">
-              <span className="stat-label">Temps de déploiement</span>
-              <span className="stat-value">2.4s</span>
-              <span className="stat-change positive">-12% plus rapide</span>
-            </div>
+        {/* News Section */}
+        <section className="news-section">
+          <div className="section-header">
+            <h2>📰 Actualités</h2>
+            <a href="#" className="view-all">Voir tout →</a>
           </div>
-
-          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`} style={{ animationDelay: "0.1s" }}>
-            <div className="stat-icon green">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
-                <path d="M8 12L11 15L16 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <div className="stat-content">
-              <span className="stat-label">Statut</span>
-              <span className="stat-value success">Actif</span>
-              <span className="stat-change">100% uptime</span>
-            </div>
-          </div>
-
-          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`} style={{ animationDelay: "0.2s" }}>
-            <div className="stat-icon purple">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div className="stat-content">
-              <span className="stat-label">Version</span>
-              <span className="stat-value">v2.4.1</span>
-              <span className="stat-change">Dernière version</span>
-            </div>
-          </div>
-
-          <div className={`stat-card ${isLoaded ? "fade-in" : ""}`} style={{ animationDelay: "0.3s" }}>
-            <div className="stat-icon orange">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 7V12L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <div className="stat-content">
-              <span className="stat-label">Runtime</span>
-              <span className="stat-value">{title || "—"}</span>
-              <span className="stat-change">Node.js 20</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="deployment-details">
-          <div className="details-header">
-            <h2>Détails du déploiement</h2>
-            <span className="deployment-id">#DEP-2026-0715</span>
-          </div>
-          
-          <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Plateforme</span>
-              <span className="detail-value">Google Cloud Run</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Région</span>
-              <span className="detail-value">europe-west1</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">CI/CD</span>
-              <span className="detail-value">GitHub Actions</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Déployé par</span>
-              <span className="detail-value">westfield-team</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="pipeline-section">
-          <h3>Pipeline de déploiement</h3>
-          <div className="pipeline-steps">
-            {[
-              { name: "Build", status: "done", time: "1.2s" },
-              { name: "Test", status: "done", time: "3.8s" },
-              { name: "Deploy", status: "active", time: "2.4s" },
-              { name: "Verify", status: "pending", time: "..." }
-            ].map((step, i) => (
-              <div key={step.name} className={`pipeline-step ${step.status}`}>
-                <div className="step-indicator">
-                  {step.status === "done" && (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" fill="#10B981"/>
-                      <path d="M8 12L11 15L16 10" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  )}
-                  {step.status === "active" && (
-                    <div className="spinner" />
-                  )}
-                  {step.status === "pending" && (
-                    <div className="pending-dot" />
-                  )}
+          <div className="news-grid">
+            {news.map((item, index) => (
+              <article 
+                key={item.id} 
+                className={`news-card ${isLoaded ? "fade-in" : ""}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="news-image">{item.image}</div>
+                <div className="news-content">
+                  <span className="news-category">{item.category}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.excerpt}</p>
+                  <div className="news-meta">
+                    <span>👤 {item.author}</span>
+                    <span>📅 {item.date}</span>
+                  </div>
                 </div>
-                <div className="step-content">
-                  <span className="step-name">{step.name}</span>
-                  <span className="step-time">{step.time}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Quick Info */}
+        <section className="info-section">
+          <div className="info-card">
+            <div className="info-icon">📅</div>
+            <h3>Emploi du temps</h3>
+            <p>Consultez les emplois du temps de votre classe</p>
+            <button className="info-btn">Voir</button>
+          </div>
+          <div className="info-card">
+            <div className="info-icon">📊</div>
+            <h3>Notes & Résultats</h3>
+            <p>Accédez à vos bulletins et résultats</p>
+            <button className="info-btn">Accéder</button>
+          </div>
+          <div className="info-card">
+            <div className="info-icon">📱</div>
+            <h3>Espace Parents</h3>
+            <p>Suivez la scolarité de votre enfant</p>
+            <button className="info-btn">Se connecter</button>
+          </div>
+          <div className="info-card">
+            <div className="info-icon">🎯</div>
+            <h3>Orientation</h3>
+            <p>Conseils et accompagnement personnalisé</p>
+            <button className="info-btn">En savoir plus</button>
+          </div>
+        </section>
+
+        {/* Today's Events */}
+        <section className="events-section">
+          <h2>📌 Aujourd'hui à l'école</h2>
+          <div className="events-list">
+            {events.map((event, index) => (
+              <div key={index} className={`event-item ${isLoaded ? "fade-in" : ""}`}>
+                <div className="event-time">{event.time}</div>
+                <div className="event-info">
+                  <span className="event-title">{event.title}</span>
+                  <span className="event-room">{event.room}</span>
                 </div>
-                {i < 3 && <div className="step-connector" />}
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="quick-actions">
-          <button className="action-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M12 4V16M12 16L8 12M12 16L16 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M4 16L4 20H20V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-            Redéployer
-          </button>
-          <button className="action-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
-              <path d="M12 8V12L14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-            Historique
-          </button>
-          <button className="action-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-            </svg>
-            Configuration
-          </button>
-        </div>
+        </section>
       </main>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-col">
+            <h4>{schoolName}</h4>
+            <p>123 Rue de l'Éducation<br />75000 Paris</p>
+            <p>📞 01 23 45 67 89<br />✉️ contact@ecole.fr</p>
+          </div>
+          <div className="footer-col">
+            <h4>Liens rapides</h4>
+            <ul>
+              <li><a href="#">Calendrier</a></li>
+              <li><a href="#">Restaurant scolaire</a></li>
+              <li><a href="#">CDI</a></li>
+              <li><a href="#">Association sportive</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Formations</h4>
+            <ul>
+              <li><a href="#">Seconde</a></li>
+              <li><a href="#">Première</a></li>
+              <li><a href="#">Terminale</a></li>
+              <li><a href="#">BTS</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Suivez-nous</h4>
+            <div className="social-links">
+              <a href="#">📱</a>
+              <a href="#">🐦</a>
+              <a href="#">📷</a>
+              <a href="#">💼</a>
+            </div>
+            <p className="newsletter">📧 Newsletter</p>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© 2026 {schoolName}. Tous droits réservés.</span>
+          <div className="footer-links">
+            <a href="#">Mentions légales</a>
+            <a href="#">Confidentialité</a>
+          </div>
+        </div>
+      </footer>
 
       <style jsx global>{`
         * {
@@ -211,24 +238,19 @@ export default function Home() {
         }
 
         body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
           background: #F8FAFC;
-          color: #0A0E1A;
+          color: #1E293B;
         }
 
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes spin {
-          to { transform: rotate(360deg); }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
         }
 
         .fade-in {
@@ -239,12 +261,10 @@ export default function Home() {
       <style jsx>{`
         .app {
           min-height: 100vh;
-          background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
         }
 
-        .navbar {
-          background: white;
-          border-bottom: 1px solid #E2E8F0;
+        .header {
+          background: #1E293B;
           padding: 0 2rem;
           height: 72px;
           display: flex;
@@ -252,10 +272,10 @@ export default function Home() {
           position: sticky;
           top: 0;
           z-index: 100;
-          backdrop-filter: blur(8px);
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        .header-container {
           max-width: 1280px;
           width: 100%;
           margin: 0 auto;
@@ -264,59 +284,68 @@ export default function Home() {
           align-items: center;
         }
 
-        .nav-brand {
+        .logo {
           display: flex;
           align-items: center;
           gap: 12px;
-          font-weight: 600;
-          font-size: 1.2rem;
-          color: #1E293B;
         }
 
-        .nav-links {
+        .logo-icon {
+          font-size: 2rem;
+        }
+
+        .logo-text {
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: white;
+          display: block;
+        }
+
+        .logo-sub {
+          font-size: 0.7rem;
+          color: #94A3B8;
+          display: block;
+        }
+
+        .nav {
           display: flex;
-          align-items: center;
           gap: 2rem;
+          align-items: center;
         }
 
-        .nav-links a {
-          color: #64748B;
+        .nav-link {
+          color: #CBD5E1;
           text-decoration: none;
-          font-size: 0.9rem;
-          font-weight: 500;
+          font-size: 0.95rem;
           transition: color 0.2s;
+          padding: 0.5rem 0;
+          border-bottom: 2px solid transparent;
         }
 
-        .nav-links a:hover {
-          color: #2563EB;
+        .nav-link:hover,
+        .nav-link.active {
+          color: white;
+          border-bottom-color: #3B82F6;
         }
 
-        .btn-outline {
-          background: transparent;
-          border: 1px solid #E2E8F0;
-          padding: 0.5rem 1.25rem;
-          border-radius: 8px;
-          color: #64748B;
-          font-size: 0.9rem;
-          font-weight: 500;
+        .menu-btn {
+          display: none;
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
           cursor: pointer;
-          transition: all 0.2s;
         }
 
-        .btn-outline:hover {
-          border-color: #2563EB;
-          color: #2563EB;
-        }
-
-        .main-content {
+        .hero {
           max-width: 1280px;
           margin: 0 auto;
-          padding: 3rem 2rem;
-        }
-
-        .hero-section {
-          text-align: center;
-          padding: 3rem 0 4rem;
+          padding: 4rem 2rem;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: center;
+          min-height: 500px;
         }
 
         .hero-badge {
@@ -324,348 +353,475 @@ export default function Home() {
           align-items: center;
           gap: 8px;
           padding: 0.4rem 1rem;
-          background: #DCFCE7;
-          color: #16A34A;
+          background: #DBEAFE;
+          color: #1D4ED8;
           border-radius: 999px;
           font-size: 0.85rem;
-          font-weight: 500;
+          font-weight: 600;
           margin-bottom: 1.5rem;
+          opacity: 0;
         }
 
-        .status-dot {
+        .badge-dot {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: #22C55E;
+          background: #3B82F6;
           animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
         }
 
         h1 {
           font-size: 3.5rem;
-          font-weight: 700;
-          color: #0A0E1A;
-          margin-bottom: 1rem;
-          letter-spacing: -0.02em;
+          font-weight: 800;
+          line-height: 1.1;
+          margin-bottom: 1.5rem;
+          color: #0F172A;
+          opacity: 0;
         }
 
-        .hero-subtitle {
+        .highlight {
+          background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text {
           font-size: 1.2rem;
           color: #64748B;
-          margin-bottom: 2.5rem;
+          margin-bottom: 2rem;
+          line-height: 1.6;
         }
 
         .hero-actions {
           display: flex;
           gap: 1rem;
-          justify-content: center;
+          margin-bottom: 3rem;
           flex-wrap: wrap;
         }
 
         .btn-primary, .btn-secondary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
           padding: 0.75rem 2rem;
           border-radius: 10px;
           font-size: 1rem;
-          font-weight: 500;
+          font-weight: 600;
           cursor: pointer;
           transition: all 0.2s;
           border: none;
         }
 
         .btn-primary {
-          background: #2563EB;
+          background: #3B82F6;
           color: white;
-          box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
         .btn-primary:hover {
-          background: #1D4ED8;
+          background: #2563EB;
           transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
 
         .btn-secondary {
-          background: white;
+          background: #F1F5F9;
           color: #1E293B;
-          border: 1px solid #E2E8F0;
         }
 
         .btn-secondary:hover {
-          background: #F8FAFC;
-          border-color: #CBD5E1;
+          background: #E2E8F0;
         }
 
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1.5rem;
-          margin-bottom: 3rem;
-        }
-
-        .stat-card {
-          background: white;
-          padding: 1.5rem;
-          border-radius: 12px;
-          border: 1px solid #E2E8F0;
+        .hero-stats {
           display: flex;
-          align-items: center;
-          gap: 1rem;
-          opacity: 0;
+          gap: 3rem;
         }
 
-        .stat-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .stat-icon.blue { background: #DBEAFE; color: #2563EB; }
-        .stat-icon.green { background: #DCFCE7; color: #16A34A; }
-        .stat-icon.purple { background: #F3E8FF; color: #9333EA; }
-        .stat-icon.orange { background: #FEF3C7; color: #D97706; }
-
-        .stat-content {
-          flex: 1;
+        .stat-number {
+          display: block;
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: #0F172A;
         }
 
         .stat-label {
-          display: block;
-          font-size: 0.8rem;
-          color: #94A3B8;
-          margin-bottom: 2px;
-        }
-
-        .stat-value {
-          font-size: 1.4rem;
-          font-weight: 600;
-          color: #0A0E1A;
-        }
-
-        .stat-value.success {
-          color: #16A34A;
-        }
-
-        .stat-change {
-          font-size: 0.75rem;
-          color: #94A3B8;
-          display: block;
-          margin-top: 2px;
-        }
-
-        .stat-change.positive {
-          color: #16A34A;
-        }
-
-        .deployment-details {
-          background: white;
-          border-radius: 12px;
-          border: 1px solid #E2E8F0;
-          padding: 2rem;
-          margin-bottom: 3rem;
-        }
-
-        .details-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 1.5rem;
-          padding-bottom: 1rem;
-          border-bottom: 1px solid #F1F5F9;
-        }
-
-        .details-header h2 {
-          font-size: 1.2rem;
-          font-weight: 600;
-          color: #0A0E1A;
-        }
-
-        .deployment-id {
-          font-family: 'Courier New', monospace;
           font-size: 0.85rem;
-          color: #94A3B8;
-          background: #F8FAFC;
-          padding: 0.3rem 0.8rem;
-          border-radius: 6px;
+          color: #64748B;
         }
 
-        .details-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 2rem;
-        }
-
-        .detail-item {
+        .hero-image {
           display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
-
-        .detail-label {
-          font-size: 0.8rem;
-          color: #94A3B8;
-          font-weight: 500;
-        }
-
-        .detail-value {
-          font-size: 1rem;
-          font-weight: 500;
-          color: #0A0E1A;
-        }
-
-        .pipeline-section {
-          background: white;
-          border-radius: 12px;
-          border: 1px solid #E2E8F0;
-          padding: 2rem;
-          margin-bottom: 3rem;
-        }
-
-        .pipeline-section h3 {
-          font-size: 1rem;
-          font-weight: 600;
-          color: #0A0E1A;
-          margin-bottom: 1.5rem;
-        }
-
-        .pipeline-steps {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          position: relative;
-        }
-
-        .pipeline-step {
-          display: flex;
+          justify-content: center;
           align-items: center;
-          gap: 0.75rem;
-          flex: 1;
-          position: relative;
         }
 
-        .step-indicator {
-          width: 40px;
-          height: 40px;
-          flex-shrink: 0;
+        .image-placeholder {
+          font-size: 15rem;
+          line-height: 1;
+          background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+          padding: 2rem;
+          border-radius: 20px;
+          width: 100%;
+          text-align: center;
+          min-height: 300px;
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
-        .spinner {
-          width: 24px;
-          height: 24px;
-          border: 3px solid #DBEAFE;
-          border-top-color: #2563EB;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
+        .news-section {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 4rem 2rem;
         }
 
-        .pending-dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: #E2E8F0;
-        }
-
-        .step-content {
+        .section-header {
           display: flex;
-          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2rem;
         }
 
-        .step-name {
+        .section-header h2 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #0F172A;
+        }
+
+        .view-all {
+          color: #3B82F6;
+          text-decoration: none;
           font-weight: 500;
-          font-size: 0.95rem;
-          color: #0A0E1A;
         }
 
-        .step-time {
+        .news-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+        }
+
+        .news-card {
+          background: white;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          transition: all 0.3s;
+          opacity: 0;
+        }
+
+        .news-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        .news-image {
+          font-size: 4rem;
+          padding: 2rem;
+          text-align: center;
+          background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+        }
+
+        .news-content {
+          padding: 1.5rem;
+        }
+
+        .news-category {
+          display: inline-block;
+          padding: 0.2rem 0.8rem;
+          background: #DBEAFE;
+          color: #1D4ED8;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          margin-bottom: 0.75rem;
+        }
+
+        .news-content h3 {
+          font-size: 1.1rem;
+          margin-bottom: 0.5rem;
+          color: #0F172A;
+        }
+
+        .news-content p {
+          color: #64748B;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          margin-bottom: 1rem;
+        }
+
+        .news-meta {
+          display: flex;
+          gap: 1rem;
           font-size: 0.8rem;
           color: #94A3B8;
         }
 
-        .step-connector {
-          flex: 1;
-          height: 2px;
-          background: #E2E8F0;
-          margin: 0 1rem;
-          align-self: center;
+        .info-section {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 2rem 2rem 4rem;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
         }
 
-        .pipeline-step.done .step-name { color: #16A34A; }
-        .pipeline-step.active .step-name { color: #2563EB; }
-
-        .quick-actions {
-          display: flex;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        .action-btn {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 0.7rem 1.5rem;
+        .info-card {
           background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          text-align: center;
           border: 1px solid #E2E8F0;
-          border-radius: 8px;
-          color: #1E293B;
+          transition: all 0.3s;
+        }
+
+        .info-card:hover {
+          border-color: #3B82F6;
+          transform: translateY(-4px);
+        }
+
+        .info-icon {
+          font-size: 2.5rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .info-card h3 {
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+          color: #0F172A;
+        }
+
+        .info-card p {
           font-size: 0.9rem;
+          color: #64748B;
+          margin-bottom: 1rem;
+        }
+
+        .info-btn {
+          padding: 0.5rem 1.5rem;
+          background: #F1F5F9;
+          border: none;
+          border-radius: 6px;
+          color: #1E293B;
           font-weight: 500;
           cursor: pointer;
           transition: all 0.2s;
         }
 
-        .action-btn:hover {
-          border-color: #2563EB;
-          color: #2563EB;
-          transform: translateY(-1px);
+        .info-btn:hover {
+          background: #3B82F6;
+          color: white;
+        }
+
+        .events-section {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 2rem 4rem;
+        }
+
+        .events-section h2 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #0F172A;
+          margin-bottom: 2rem;
+        }
+
+        .events-list {
+          background: white;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .event-item {
+          display: flex;
+          padding: 1.2rem 2rem;
+          border-bottom: 1px solid #F1F5F9;
+          gap: 2rem;
+          align-items: center;
+          opacity: 0;
+        }
+
+        .event-item:last-child {
+          border-bottom: none;
+        }
+
+        .event-time {
+          font-weight: 700;
+          color: #3B82F6;
+          min-width: 80px;
+        }
+
+        .event-info {
+          display: flex;
+          justify-content: space-between;
+          flex: 1;
+          align-items: center;
+        }
+
+        .event-title {
+          font-weight: 500;
+          color: #0F172A;
+        }
+
+        .event-room {
+          color: #94A3B8;
+          font-size: 0.9rem;
+        }
+
+        .footer {
+          background: #0F172A;
+          color: #94A3B8;
+          padding: 3rem 2rem 1.5rem;
+          margin-top: 2rem;
+        }
+
+        .footer-content {
+          max-width: 1280px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr 1fr;
+          gap: 3rem;
+          margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+          color: white;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+        }
+
+        .footer-col p {
+          line-height: 1.8;
+          font-size: 0.9rem;
+        }
+
+        .footer-col ul {
+          list-style: none;
+        }
+
+        .footer-col ul li {
+          margin-bottom: 0.5rem;
+        }
+
+        .footer-col ul li a {
+          color: #94A3B8;
+          text-decoration: none;
+          transition: color 0.2s;
+          font-size: 0.9rem;
+        }
+
+        .footer-col ul li a:hover {
+          color: #3B82F6;
+        }
+
+        .social-links {
+          display: flex;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .social-links a {
+          text-decoration: none;
+          font-size: 1.5rem;
+          color: #94A3B8;
+          transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+          color: white;
+        }
+
+        .newsletter {
+          font-size: 0.9rem;
+          color: #64748B;
+        }
+
+        .footer-bottom {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding-top: 1.5rem;
+          border-top: 1px solid #1E293B;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.85rem;
+        }
+
+        .footer-links {
+          display: flex;
+          gap: 1.5rem;
+        }
+
+        .footer-links a {
+          color: #94A3B8;
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+          color: white;
         }
 
         @media (max-width: 1024px) {
-          .stats-grid {
+          .hero {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 2rem;
+          }
+          .hero-stats {
+            justify-content: center;
+          }
+          .hero-actions {
+            justify-content: center;
+          }
+          .news-grid {
             grid-template-columns: repeat(2, 1fr);
           }
-          .details-grid {
+          .info-section {
             grid-template-columns: repeat(2, 1fr);
+          }
+          .footer-content {
+            grid-template-columns: 1fr 1fr;
           }
         }
 
         @media (max-width: 768px) {
-          .navbar {
-            padding: 0 1rem;
-          }
-          .nav-links {
+          .nav {
             display: none;
+          }
+          .menu-btn {
+            display: block;
           }
           h1 {
             font-size: 2.5rem;
           }
-          .stats-grid {
+          .news-grid {
             grid-template-columns: 1fr;
           }
-          .details-grid {
+          .info-section {
             grid-template-columns: 1fr;
           }
-          .pipeline-steps {
+          .footer-content {
+            grid-template-columns: 1fr;
+          }
+          .footer-bottom {
             flex-direction: column;
             gap: 1rem;
+            text-align: center;
           }
-          .step-connector {
-            display: none;
+          .event-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
           }
-          .main-content {
+          .event-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
+          }
+          .hero {
             padding: 2rem 1rem;
+          }
+          .image-placeholder {
+            font-size: 8rem;
+            min-height: 200px;
           }
         }
       `}</style>
