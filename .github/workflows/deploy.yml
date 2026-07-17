@@ -64,8 +64,19 @@ jobs:
         id: branch
         shell: bash
         run: |
-          BRANCH=$(echo "${GITHUB_REF_NAME}" | tr '/' '-')
+          # Nettoyer le nom de la branche : remplacer / . _ et autres caractères spéciaux par des tirets
+          # Puis supprimer les tirets multiples et les tirets en début/fin
+          BRANCH=$(echo "${GITHUB_REF_NAME}" | \
+            sed 's/[^a-zA-Z0-9]/-/g' | \
+            sed 's/--*/-/g' | \
+            sed 's/^-//;s/-$//' | \
+            tr '[:upper:]' '[:lower:]')
+          
+          # Limiter la longueur à 63 caractères (limite Cloud Run)
+          BRANCH=$(echo "${BRANCH}" | cut -c1-63)
+          
           echo "branch_name=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "Cleaned branch name: $BRANCH" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Deploy to Cloud Run
         id: deploy
