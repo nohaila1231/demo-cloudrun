@@ -76,28 +76,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer avec le rythme de la journée */}
-      <div className="day-rhythm">
-        <div className="rhythm-item">
-          <span className="rhythm-icon">🌅</span>
-          <span className="rhythm-label">Accueil</span>
-        </div>
-        <div className="rhythm-dot"></div>
-        <div className="rhythm-item">
-          <span className="rhythm-icon">🎨</span>
-          <span className="rhythm-label">Jeux</span>
-        </div>
-        <div className="rhythm-dot"></div>
-        <div className="rhythm-item">
-          <span className="rhythm-icon">🍽️</span>
-          <span className="rhythm-label">Repas</span>
-        </div>
-        <div className="rhythm-dot"></div>
-        <div className="rhythm-item">
-          <span className="rhythm-icon">😴</span>
-          <span className="rhythm-label">Sieste</span>
-        </div>
-      </div>
+  
 
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka+One&display=swap");
