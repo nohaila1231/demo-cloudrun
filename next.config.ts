@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const serviceName = process.env.CLOUD_RUN_SERVICE || demo-cloudrun;
+const serviceName = process.env.CLOUD_RUN_SERVICE || "demo-cloudrun";
 const revisionTag = process.env.CLOUD_RUN_TAG;
 
 if (!serviceName || !revisionTag) {
