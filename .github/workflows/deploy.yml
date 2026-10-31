@@ -89,7 +89,7 @@ jobs:
           image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}
           env_vars: ${{ steps.envvars.outputs.env_vars }}
           secrets: ${{ steps.secrets.outputs.secrets_vars }}
-          suffix: ${{ steps.branch.outputs.branch_name }}-${{ github.run_number }}
+          suffix: ${{ steps.branch.outputs.branch_name }}
           tag: ${{ steps.branch.outputs.branch_name }}
           flags: >-
             --service-account=next-runtime@devops-sqli-projet.iam.gserviceaccount.com
