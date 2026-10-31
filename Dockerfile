@@ -21,6 +21,9 @@ COPY --from=builder /app .
 
 ENV NODE_ENV=production
 
+ARG CLOUD_RUN_TAG 
+ENV CLOUD_RUN_TAG=$CLOUD_RUN_TAG
+
 ENV PORT=8080
 
 EXPOSE 8080
