@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
+ARG CLOUD_RUN_TAG 
+ENV CLOUD_RUN_TAG=$CLOUD_RUN_TAG
+
 RUN npm install
 
 COPY . .
