@@ -8,6 +8,9 @@ RUN npm install
 
 COPY . .
 
+ARG CLOUD_RUN_TAG 
+ENV CLOUD_RUN_TAG=$CLOUD_RUN_TAG 
+
 RUN npm run build
 
 FROM node:22-alpine
