@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
-const serviceName = process.env.CLOUD_RUN_SERVICE || "demo-cloudrun";
-const revisionTag = process.env.CLOUD_RUN_TAG || "main";
+const serviceName = process.env.CLOUD_RUN_SERVICE ;
+const revisionTag = process.env.CLOUD_RUN_TAG ;
 
 const prefix = `/${serviceName}/${revisionTag}`;
 
