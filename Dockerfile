@@ -8,9 +8,6 @@ RUN npm install
 
 COPY . .
 
-ARG CLOUD_RUN_TAG 
-ENV CLOUD_RUN_TAG=$CLOUD_RUN_TAG
-
 RUN npm run build
 
 FROM node:22-alpine
@@ -20,6 +17,9 @@ WORKDIR /app
 COPY --from=builder /app .
 
 ENV NODE_ENV=production
+
+ARG CLOUD_RUN_TAG 
+ENV CLOUD_RUN_TAG=$CLOUD_RUN_TAG
 
 ENV PORT=8080
 
