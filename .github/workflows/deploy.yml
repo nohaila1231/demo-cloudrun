@@ -15,6 +15,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    outputs:
+      revision_tag: ${{ steps.branch.outputs.branch_name}}
+      
     permissions:
       contents: read
       id-token: write
@@ -109,8 +112,6 @@ jobs:
             echo "## Revision Tag"
             echo "### \`${{ needs.deploy.outputs.revision_tag }}\`"
             echo ""
-            echo "## Application URL"
-            echo "${{ needs.deploy.outputs.application_url }}"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Show Cloud Run URL
