@@ -1,13 +1,10 @@
 import type { NextConfig } from "next";
 
 const revisionTag = process.env.CLOUD_RUN_TAG;
-
-if (!revisionTag) {
-  throw new Error("CLOUD_RUN_TAG is not defined");
-}
 const prefix = `/${revisionTag}`;
 
 const nextConfig: NextConfig = {
+  ...(revisionTag && {
   assetPrefix: prefix,
 
   async rewrites() {
@@ -21,7 +18,7 @@ const nextConfig: NextConfig = {
         destination: "/",
       },
     ];
-  },
+  }),
 };
 
 export default nextConfig;
