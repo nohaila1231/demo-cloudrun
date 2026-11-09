@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
         destination: "/",
       },
     ];
-  }),
+  }}),
 };
 
 export default nextConfig;
