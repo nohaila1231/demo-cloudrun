@@ -113,8 +113,3 @@ jobs:
             echo "### \`${{ needs.deploy.outputs.revision_tag }}\`"
             echo ""
           } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Show Cloud Run URL
-        run: |
-          echo "Application URL:"
-          echo "${{ steps.deploy.outputs.url }}"
